@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drone Photo Map</title>
+    <style>
+        /* Set map size */
+        #map {
+            height: 500px;
+            width: 100%;
+        }
+        #gallery {
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+        .thumbnail {
+            width: 100px;
+            height: 100px;
+            margin: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Drone Photo Map</h1>
+    <div id="map"></div>
+    <div id="gallery"></div>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&callback=initMap" async defer></script>
+    <script>
+        let map;
+        const markers = []; // Array to hold markers and their associated photos
+        
+        function initMap() {
+            // Initialize the map centered at a default location
+            map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 12,
+                center: { lat: 40.7128, lng: -74.0060 }, // New York default
+            });
+
+            // Fetch photos and coordinates from your backend (API)
+            fetch("/api/photos") // Your API endpoint
+                .then(response => response.json())
+                .then(data => {
+                    data.forEach(photo => {
+                        const { latitude, longitude, imageUrl } = photo;
+
+                        // Place a marker on the map
+                        const marker = new google.maps.Marker({
+                            position: { lat: latitude, lng: longitude },
+                            map: map,
+                            title: "Click to see photos",
+                        });
+
+                        // Store marker with its image data
+                        markers.push({ marker, imageUrl });
+
+                        // Add a click listener to open the gallery
+                        marker.addListener("click", () => showGallery(imageUrl));
+                    });
+                });
+        }
+
+        function showGallery(imageUrls) {
+            const gallery = document.getElementById("gallery");
+            gallery.innerHTML = ""; // Clear previous gallery
+
+            imageUrls.forEach(url => {
+                const img = document.createElement("img");
+                img.src = url;
+                img.className = "thumbnail";
+                gallery.appendChild(img);
+            });
+        }
+    </script>
+</body>
+</html>

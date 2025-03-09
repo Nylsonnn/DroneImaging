@@ -5,7 +5,6 @@ import "leaflet/dist/leaflet.css";
 const MapComponent = () => {
     const [images, setImages] = useState([]);
 
-    // Fetch drone images from backend
     useEffect(() => {
         fetch("http://localhost:5000/api/images")
             .then(res => res.json())
@@ -17,20 +16,22 @@ const MapComponent = () => {
     }, []);
 
     return (
-        <MapContainer center={[51.505, -0.09]} zoom={13} style={{ height: "500px", width: "100%" }}>
-            <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-            {images.length > 0 ? (
-                images.map((image, index) => (
-                    <Marker key={index} position={[image.gps.latitude, image.gps.longitude]}>
-                        <Popup>
-                            <img src={image.url} alt="Drone Image" width="200px" />
-                        </Popup>
-                    </Marker>
-                ))
+        <div style={{ height: "500px", width: "100%" }}>
+            {images.length === 0 ? (
+                <p>📍 No images found! Make sure you loaded test images.</p>
             ) : (
-                <p>📍 No drone images found!</p>
+                <MapContainer center={[51.5074, -0.1278]} zoom={13} style={{ height: "100%", width: "100%" }}>
+                    <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+                    {images.map((image, index) => (
+                        <Marker key={index} position={[image.gps.latitude, image.gps.longitude]}>
+                            <Popup>
+                                <img src={image.url} alt="Drone Image" width="200px" />
+                            </Popup>
+                        </Marker>
+                    ))}
+                </MapContainer>
             )}
-        </MapContainer>
+        </div>
     );
 };
 

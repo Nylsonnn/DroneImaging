@@ -26,7 +26,7 @@ const ImageSchema = new mongoose.Schema({
 
 const Image = mongoose.model("Image", ImageSchema);
 
-// Route to get all drone images
+// ✅ ROUTE: Fetch all drone images
 app.get("/api/images", async (req, res) => {
     try {
         const images = await Image.find();  // Fetch images from MongoDB
@@ -34,6 +34,19 @@ app.get("/api/images", async (req, res) => {
     } catch (error) {
         console.error("❌ Error fetching images:", error);
         res.status(500).json({ error: "Failed to fetch images" });
+    }
+});
+
+// ✅ ROUTE: Load test images into the database
+const testImages = require("./test_images.json");
+
+app.post("/api/images/load-test", async (req, res) => {
+    try {
+        await Image.insertMany(testImages);
+        res.json({ success: true, message: "Test images added!" });
+    } catch (error) {
+        console.error("❌ Error inserting test images:", error);
+        res.status(500).json({ error: "Failed to insert images" });
     }
 });
 

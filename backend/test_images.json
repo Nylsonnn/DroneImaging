@@ -1,0 +1,22 @@
+[
+    {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/3/3f/Fronalpstock_big.jpg",
+        "gps": { "latitude": 51.5074, "longitude": -0.1278 }
+    },
+    {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/5/57/Golden_Gate_Bridge_SF_CA.jpg",
+        "gps": { "latitude": 51.5145, "longitude": -0.0931 }
+    },
+    {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/1/1a/Boreal_forest_in_Norway.jpg",
+        "gps": { "latitude": 51.5201, "longitude": -0.1357 }
+    },
+    {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg",
+        "gps": { "latitude": 51.5286, "longitude": -0.1331 }
+    },
+    {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Testcard_F.jpg",
+        "gps": { "latitude": 51.5308, "longitude": -0.1256 }
+    }
+]

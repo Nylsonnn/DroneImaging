@@ -38,7 +38,7 @@ services:
     ports:
       - "5173:5173"
     volumes:
-      - ./frontend:/app
+      - ./frontend:/appA
       - /app/node_modules
     depends_on:
       - api
